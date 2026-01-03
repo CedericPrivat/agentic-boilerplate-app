@@ -183,6 +183,7 @@ The homepage is a setup checklist page with an interactive checklist **grouped b
 │
 ├── .claude/
 │   ├── CLAUDE.md                     # Main project instructions
+│   ├── settings.json                 # Pre-configured permission allowlists
 │   ├── agents/                       # Domain-specific agents
 │   │   ├── nextjs.md
 │   │   ├── testing.md
@@ -192,7 +193,11 @@ The homepage is a setup checklist page with an interactive checklist **grouped b
 │   │   ├── styling.md
 │   │   └── refactoring.md            # Refactoring principles & patterns
 │   └── commands/                     # Claude slash commands
-│       ├── commit.md                 # /commit
+│       ├── commit.md                 # /commit - conventional commit
+│       ├── explore.md                # /explore - research codebase before changes
+│       ├── review.md                 # /review - code review with criteria
+│       ├── migrate.md                # /migrate - DB migration with checklist
+│       ├── debug.md                  # /debug - systematic debugging workflow
 │       ├── refactor.md               # /refactor - guided refactoring with best practices
 │       ├── upstream.md               # /upstream - contribute patterns/libs back to boilerplate
 │       ├── add-file-storage.md       # /add-file-storage
@@ -203,7 +208,8 @@ The homepage is a setup checklist page with an interactive checklist **grouped b
 │       └── remove-boilerplate.md     # /remove-boilerplate
 │
 ├── .github/workflows/
-│   └── ci.yml                        # Lint, typecheck, test (Vercel handles deploys)
+│   ├── ci.yml                        # Lint, typecheck, test (Vercel handles deploys)
+│   └── claude-review.yml             # (Optional) Automated PR review with Claude
 │
 ├── .husky/
 │   ├── pre-commit                    # lint-staged
@@ -555,9 +561,23 @@ NEXT_PUBLIC_UMAMI_WEBSITE_ID=your-website-id
    - Uptime Kuma provides built-in public status page
    - Use env vars: `UPTIME_KUMA_PORT`, `UPTIME_KUMA_URL`
 
+6. **Claude Code CI Integration (Optional):**
+   - Add `.github/workflows/claude-review.yml` for automated PR reviews
+   - Use `-p` flag for headless Claude operations in CI
+   - **Fanning out pattern** - For bulk operations:
+     ```bash
+     # Generate task list, then loop with Claude
+     for file in $(find . -name "*.ts"); do
+       claude -p "Review $file for type safety" --json >> results.json
+     done
+     ```
+   - **Pipelining pattern** - Integrate Claude into data workflows with `--json` output
+   - Safe for automated linting fixes, boilerplate generation in isolated environments
+
 ### Phase 9: Claude Code Setup
 **Files to create:**
 - `.claude/CLAUDE.md` - Main project instructions
+- `.claude/settings.json` - Pre-configured permission allowlists
 - `.claude/agents/nextjs.md` - Next.js patterns
 - `.claude/agents/testing.md` - Testing guidelines
 - `.claude/agents/database.md` - Drizzle patterns
@@ -566,16 +586,85 @@ NEXT_PUBLIC_UMAMI_WEBSITE_ID=your-website-id
 - `.claude/agents/styling.md` - Styling guidelines
 - `.claude/agents/refactoring.md` - Refactoring principles (SOLID, DRY, KISS, separation of concerns, composition over inheritance, etc.)
 - `.claude/commands/commit.md` - Create git commit with conventional format
+- `.claude/commands/explore.md` - Research codebase before making changes
+- `.claude/commands/review.md` - Code review with specific criteria
+- `.claude/commands/migrate.md` - Database migration with checklist pattern
+- `.claude/commands/debug.md` - Systematic debugging workflow
 - `.claude/commands/add-file-storage.md` - Add UploadThing addon
 - `.claude/commands/add-ai.md` - Add OpenRouter + AI SDK addon
 - `.claude/commands/add-realtime.md` - Add PartyKit addon
 - `.claude/commands/add-state.md` - Add Zustand addon
 - `.claude/commands/add-payments.md` - Add Polar.sh payments addon
 
+**CLAUDE.md Must Include:**
+- **Common bash commands** with descriptions:
+  ```
+  bun dev          # Start dev server + Docker services
+  bun test         # Run unit tests (Bun)
+  bun test:e2e     # Run E2E tests (Playwright)
+  bun lint:fix     # Fix linting issues (Ultracite/Biome)
+  bun db:generate  # Generate migrations
+  bun db:migrate   # Run migrations
+  bun db:studio    # Open Drizzle Studio
+  ```
+- **Code style guidelines** - Alias imports, named exports, Server Components default
+- **Testing instructions** - When to write E2E vs unit tests, co-location pattern
+- **Repository workflow** - Branch naming (`feat/`, `fix/`), conventional commits
+- **Project quirks/warnings** - Next.js 16 async params, Bun-specific patterns
+
+**Permission Configuration (`.claude/settings.json`):**
+```json
+{
+  "permissions": {
+    "allow": [
+      "Read", "Edit", "Write", "Glob", "Grep",
+      "Bash(bun *)", "Bash(git *)", "Bash(bunx *)"
+    ],
+    "deny": []
+  }
+}
+```
+- Auto-approve: file operations, bun/bunx commands, git operations
+- Safe for agentic workflows without constant permission prompts
+
+**Workflow Patterns to Document:**
+1. **Explore, Plan, Code, Commit** - Default workflow for features:
+   - Ask Claude to research relevant files first (no coding)
+   - Request detailed plan (use "think hard" for complex tasks)
+   - Implement based on approved plan
+   - Commit with conventional format
+2. **Test-Driven Development** - Be explicit about TDD to avoid mocks:
+   - Write failing tests first
+   - Commit tests
+   - Implement until tests pass
+   - Commit implementation
+3. **Visual Iteration** - For UI work:
+   - Provide design reference/screenshot
+   - Implement → screenshot → compare → iterate
+
+**Context Management Best Practices (document in CLAUDE.md):**
+- Use `/clear` between unrelated tasks to reset context
+- Leverage subagents for complex verification tasks
+- Extended thinking triggers: `"think"` < `"think hard"` < `"think harder"` < `"ultrathink"`
+- Press Escape to interrupt Claude mid-task while preserving context
+- Double-tap Escape to edit previous prompts
+
+**Multi-Agent Development Support:**
+1. **Git Worktrees for Parallel Sessions**
+   - Document in CLAUDE.md: `git worktree add ../project-feature-x feature-x`
+   - Each worktree can have its own Claude session
+   - Enables parallel independent work without merge conflicts
+
+2. **Checklist/Scratchpad Pattern**
+   - For migrations, bulk fixes, or exhaustive tasks
+   - Claude maintains a `PROGRESS.md` with checkboxes
+   - Work through items systematically, verifying each
+   - Example: `/migrate` command uses this pattern
+
 **Actions:**
-1. Write comprehensive CLAUDE.md
-2. Create domain-specific agent files
-3. Document code conventions
+1. Write comprehensive CLAUDE.md with all sections above
+2. Create `.claude/settings.json` with permission allowlists
+3. Create domain-specific agent files
 4. **Document CLI-first principle in CLAUDE.md:**
    - Always check official docs for CLI/installation guides before manual setup
    - Use CLI tools when available (shadcn, better-auth, sentry, playwright, etc.)
@@ -586,6 +675,10 @@ NEXT_PUBLIC_UMAMI_WEBSITE_ID=your-website-id
    - Other agents: Check if the tool provides llms.txt or similar
 6. **Create Claude slash commands:**
    - `/commit` - Stages all changes and commits with conventional format
+   - `/explore` - Research codebase before making changes (Explore, Plan, Code, Commit workflow)
+   - `/review` - Code review with specific criteria and best practices
+   - `/migrate` - Database migration with checklist/scratchpad pattern
+   - `/debug` - Systematic debugging workflow
    - `/refactor` - Analyzes code, explains changes with principles (SOLID, DRY, etc.), offers choices, uses domain agents
    - `/upstream` - Extracts pattern/lib/rule from context, updates boilerplate repo + current project
    - `/add-file-storage` - Adds UploadThing, creates files, updates env
@@ -701,8 +794,6 @@ $ cd cli && bun run build && bun publish --access public
 **Files to create:**
 - `LICENSE` - MIT License
 - `README.md` - Comprehensive readme
-- `docs/add-ons/*.md` - Addon documentation
-- `CONTRIBUTING.md` - Contribution guide
 
 ---
 
@@ -713,13 +804,12 @@ $ cd cli && bun run build && bun publish --access public
 {
   "scripts": {
     "create-agentic-app": "bun run cli/index.ts",
-    "dev": "bun run dev:services && next dev",
+    "dev": "bun run dev:services && bun --bun next dev",
     "dev:services": "docker compose up -d && bun run db:migrate",
-    "build": "next build",
-    "start": "next start",
-    "lint": "biome check .",
-    "lint:fix": "biome check --write .",
-    "format": "biome format --write .",
+    "build": "bun --bun next build",
+    "start": "bun --bun next start",
+    "lint": "ultracite check",
+    "lint:fix": "ultracite fix",
     "typecheck": "tsc --noEmit",
     "test": "bun test",
     "test:e2e": "playwright test",
@@ -830,10 +920,11 @@ export async function CachedData() {
 8. **API**: OpenAPIHono with `createRoute` for automatic OpenAPI spec generation
 9. **Styling**: Tailwind + CVA + cn() helper
 10. **Loading States**: Always add loading states for async operations
-    - Use Skeleton loaders (preferred) for content placeholders
+    - Optimistic updates (using React's new `useOptimistic` hook) - preferred for mutations
+    - If not feasible, use Skeleton loaders for content placeholders
+    - Loading spinners as a last resort
     - Use `loading.tsx` for route-level loading states
     - Use Suspense boundaries with skeleton fallbacks for components
-    - Avoid spinners when possible; skeletons provide better UX
 11. **Modern Web APIs**: Prefer native browser APIs over libraries
     - `Intl.DateTimeFormat` for date formatting
     - `Intl.NumberFormat` for number/currency formatting
@@ -868,4 +959,5 @@ export async function CachedData() {
 - Core template: ~80-100 files
 - CLI tool: ~10-15 files
 - Addon templates: ~20-30 files
-- Total: ~110-145 files
+- Claude Code config: ~15-20 files (CLAUDE.md, settings.json, agents, commands)
+- Total: ~125-165 files
