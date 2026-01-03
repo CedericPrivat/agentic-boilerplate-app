@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "ultracite check",
-    "lint:fix": "ultracite fix"
+    "lint:fix": "ultracite fix",
+    "prepare": "husky"
   },
   "dependencies": {
     "next": "16.1.1",
@@ -21,6 +22,8 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "tailwindcss": "^4",
     "typescript": "^5",
     "ultracite": "^7.0.5"
