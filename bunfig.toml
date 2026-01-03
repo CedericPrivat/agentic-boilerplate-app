@@ -1,0 +1,5 @@
+[install]
+peer = false
+
+[publish]
+registry = "https://registry.npmjs.org/"
