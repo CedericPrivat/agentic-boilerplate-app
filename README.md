@@ -25,7 +25,11 @@ bun install
 # Copy environment variables
 cp .env.example .env
 
-# Start development (includes Docker services)
+# Start Docker services and push database schema
+bun dev:services
+bun db:push
+
+# Start development
 bun dev
 ```
 
