@@ -41,6 +41,11 @@
 - Prefer named exports over default exports
 - No barrel files - use folder patterns instead
 
+### 6. Git Commit Messages
+- **DO NOT add Claude Code co-author** to commit messages
+- **DO NOT add "🤖 Generated with Claude Code"** footer
+- Keep commit messages clean and conventional (feat:, fix:, chore:, etc.)
+
 ---
 
 ## Phase 1: Project Foundation
