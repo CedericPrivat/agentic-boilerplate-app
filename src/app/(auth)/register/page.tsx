@@ -1,3 +1,5 @@
+import { RegisterForm } from "@/features/auth/components/register-form";
+
 export default function RegisterPage() {
-  return <div>Register page - coming in Task 7.2</div>;
+  return <RegisterForm />;
 }
