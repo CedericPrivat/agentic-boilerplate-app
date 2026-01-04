@@ -1,3 +1,66 @@
 # Agentic Boilerplate
 
-Documentation coming soon.
+Production-ready Next.js 16 boilerplate with CLI scaffolding tool.
+
+## Features
+
+- **Next.js 16** - App Router, Typed Routes, React Compiler
+- **Auth** - Better Auth with Google OAuth + Email/Password
+- **Database** - PostgreSQL + Drizzle ORM
+- **API** - Hono with OpenAPI documentation
+- **i18n** - next-intl (cookie-based, English/German)
+- **UI** - TailwindCSS 4 + ShadCN/UI
+- **Email** - Resend + React Email
+- **Testing** - Playwright (E2E) + Bun (unit)
+- **Monitoring** - Sentry + Uptime Kuma
+
+## Quick Start
+
+```bash
+# Clone and install
+git clone https://github.com/cedericprivat/agentic-boilerplate-app
+cd agentic-boilerplate-app
+bun install
+
+# Copy environment variables
+cp .env.example .env
+
+# Start development (includes Docker services)
+bun dev
+```
+
+## Development
+
+```bash
+bun dev           # Start dev server + Docker
+bun lint          # Check code style
+bun test          # Run unit tests
+bun test:e2e      # Run E2E tests
+bun db:studio     # Open Drizzle Studio
+```
+
+## Project Structure
+
+```
+src/
+├── app/           # Next.js routes (no [locale] - i18n is cookie-based)
+├── components/    # UI components (ShadCN base-vega style)
+├── config/        # Configuration (env.ts, site.ts)
+├── db/            # Database (Drizzle)
+├── features/      # Feature modules
+├── lib/           # Utilities
+└── server/        # API (Hono)
+```
+
+## Setup Checklist
+
+The homepage shows a setup checklist with:
+- Database connection status
+- Environment variable configuration
+- Provider setup guides
+
+Run `/remove-boilerplate` in Claude Code to clear when ready.
+
+## License
+
+MIT
