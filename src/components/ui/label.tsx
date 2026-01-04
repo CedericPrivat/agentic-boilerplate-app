@@ -1,12 +1,12 @@
 "use client";
 
-import type { ComponentProps } from "react";
+import type * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-function Label({ className, ...props }: ComponentProps<"label">) {
+function Label({ className, ...props }: React.ComponentProps<"label">) {
   return (
-    // biome-ignore lint/a11y/noLabelWithoutControl: Component accepts htmlFor via props
+    // biome-ignore lint/a11y/noLabelWithoutControl: htmlFor is passed via props
     <label
       data-slot="label"
       className={cn(

@@ -10,6 +10,39 @@
 
 ---
 
+## ⚠️ IMPORTANT IMPLEMENTATION NOTES
+
+> **These notes reflect decisions made during implementation. Follow them for all tasks.**
+
+### 1. Cookie-Based i18n (No Locale in URL Paths)
+- **DO NOT use `[locale]` in route paths** (e.g., use `src/app/(auth)/login` NOT `src/app/[locale]/(auth)/login`)
+- Locale is detected from cookie, not URL
+- Configuration is in `src/i18n/request.ts` which reads from cookie
+- IntlProvider is integrated into `src/providers/index.tsx`
+
+### 2. ShadCN Field Component (Form is DEPRECATED)
+- **DO NOT use the Form component** - it is deprecated
+- **USE Field component instead** for all form fields
+- Install with: `bunx --bun shadcn@latest add field`
+- Components: `Field`, `FieldLabel`, `FieldDescription`, `FieldError`, `FieldGroup`, `FieldSet`
+- Use `data-invalid` on Field and `aria-invalid` on Input for error states
+- Pass `errors` prop to FieldError or use children
+
+### 3. Always Check ShadCN Docs Before Implementing
+- ShadCN components evolve - check https://ui.shadcn.com/docs/components before implementing
+- This project uses "base-vega" style with @base-ui/react
+
+### 4. React Import Convention
+- **DO NOT use `import * as React` or `import type * as React`**
+- Import specific types/functions: `import type { ReactNode, ComponentProps } from "react"`
+- Exception: Schema imports in db/index.ts can use namespace imports
+
+### 5. Named Exports and No Barrel Files
+- Prefer named exports over default exports
+- No barrel files - use folder patterns instead
+
+---
+
 ## Phase 1: Project Foundation
 
 ### Task 1.1: Initialize Next.js 16 Project
