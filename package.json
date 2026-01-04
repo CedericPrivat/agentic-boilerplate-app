@@ -24,6 +24,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@react-email/components": "^1.0.3",
     "@scalar/hono-api-reference": "^0.9.30",
+    "@t3-oss/env-nextjs": "^0.13.10",
     "@tanstack/react-query": "^5.90.16",
     "better-auth": "^1.4.10",
     "class-variance-authority": "^0.7.1",

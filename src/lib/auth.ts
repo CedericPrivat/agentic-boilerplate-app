@@ -1,6 +1,7 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
+import { env } from "@/config/env";
 import { db } from "@/db";
 
 export const auth = betterAuth({
@@ -11,13 +12,12 @@ export const auth = betterAuth({
     enabled: true,
   },
   socialProviders: {
-    google: {
-      // biome-ignore lint/style/noNonNullAssertion: Will be replaced with t3-env in Task 9.1
-      // biome-ignore lint/style/noProcessEnv: Will be replaced with t3-env in Task 9.1
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      // biome-ignore lint/style/noNonNullAssertion: Will be replaced with t3-env in Task 9.1
-      // biome-ignore lint/style/noProcessEnv: Will be replaced with t3-env in Task 9.1
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    },
+    google:
+      env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET
+        ? {
+            clientId: env.GOOGLE_CLIENT_ID,
+            clientSecret: env.GOOGLE_CLIENT_SECRET,
+          }
+        : undefined,
   },
 });

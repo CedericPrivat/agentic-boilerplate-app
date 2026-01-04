@@ -2,8 +2,9 @@ import type { ReactElement } from "react";
 
 import { Resend } from "resend";
 
-// biome-ignore lint/style/noProcessEnv: Will be replaced with t3-env in Task 9.1
-export const resend = new Resend(process.env.RESEND_API_KEY);
+import { env } from "@/config/env";
+
+export const resend = new Resend(env.RESEND_API_KEY);
 
 export async function sendEmail({
   to,
@@ -14,8 +15,5 @@ export async function sendEmail({
   subject: string;
   react: ReactElement;
 }) {
-  // biome-ignore lint/style/noProcessEnv: Will be replaced with t3-env in Task 9.1
-  const from = process.env.EMAIL_FROM ?? "noreply@example.com";
-
-  return resend.emails.send({ from, to, subject, react });
+  return resend.emails.send({ from: env.EMAIL_FROM, to, subject, react });
 }
