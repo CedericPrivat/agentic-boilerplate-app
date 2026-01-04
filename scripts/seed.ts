@@ -1,11 +1,12 @@
+import { sql } from "drizzle-orm";
+
 import { db } from "@/db";
 
 async function seed() {
   console.log("Seeding database...");
 
   // Verify database connection
-  const client = await db.$client.connect();
-  client.release();
+  await db.execute(sql`SELECT 1`);
   console.log("Connected to database");
 
   // Add seed data here
