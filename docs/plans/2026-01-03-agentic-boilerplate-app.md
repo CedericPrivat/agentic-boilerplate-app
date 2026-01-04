@@ -51,7 +51,6 @@
 - E2E tests go in `tests/e2e/` directory
 - Unit tests are co-located with source files in `src/`
 - Do NOT write unit tests for simple utilities (like `cn()`)
-- Playwright config uses `process.env.CI` directly (with biome-ignore comment)
 - Set `retries: 0` to avoid masking flaky tests
 
 ### 8. Code Review After Implementation
