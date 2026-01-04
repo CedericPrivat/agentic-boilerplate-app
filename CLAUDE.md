@@ -60,7 +60,7 @@ bun db:seed          # Seed database
 ## Code Style
 
 1. **Imports:** Always use `@/` alias imports
-2. **React imports:** Use specific imports, not namespace imports (e.g., `import type { ComponentProps } from "react"` not `import type * as React from "react"`). Exception: Schema imports in `src/db/index.ts` may use namespace imports.
+2. **React imports:** Use specific imports, not namespace imports (e.g., `import type { ComponentProps } from "react"` not `import type * as React from "react"`)
 3. **Exports:** Named exports, no barrel files
 4. **Components:** Server Components by default, add 'use client' when needed
 5. **Data:** Server Components -> Server Actions -> TanStack Query

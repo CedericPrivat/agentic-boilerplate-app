@@ -18,6 +18,9 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "performance": {
+        "noNamespaceImport": "error"
+      },
       "style": {
         "noProcessEnv": "error"
       },
