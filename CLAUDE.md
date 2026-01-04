@@ -45,8 +45,22 @@ bun db:studio        # Open Drizzle Studio
 bun db:seed          # Seed database
 
 # Email
-bun email:dev        # Start React Email dev server
+bun dev:email        # Start React Email dev server
 ```
+
+## Development Ports
+
+Each service runs on a dedicated port to avoid conflicts:
+
+| Service | Port | Description |
+|---------|------|-------------|
+| Next.js | 3000 | Main application |
+| Uptime Kuma | 3001 | Monitoring dashboard |
+| React Email | 3002 | Email template preview |
+| Umami | 3003 | Analytics dashboard |
+| PostgreSQL | 5432 | Database |
+
+Ports are configurable via environment variables (see `.env.example`).
 
 ## Important Implementation Notes
 

@@ -33,11 +33,24 @@ bun dev
 
 ```bash
 bun dev           # Start dev server + Docker
+bun dev:email     # Start React Email dev server
 bun lint          # Check code style
 bun test          # Run unit tests
 bun test:e2e      # Run E2E tests
 bun db:studio     # Open Drizzle Studio
 ```
+
+## Development Ports
+
+| Service | Port | Description |
+|---------|------|-------------|
+| Next.js | 3000 | Main application |
+| Uptime Kuma | 3001 | Monitoring dashboard |
+| React Email | 3002 | Email template preview |
+| Umami | 3003 | Analytics dashboard |
+| PostgreSQL | 5432 | Database |
+
+Ports are configurable via environment variables in `.env`.
 
 ## Project Structure
 
