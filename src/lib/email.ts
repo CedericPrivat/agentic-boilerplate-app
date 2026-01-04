@@ -15,5 +15,5 @@ export async function sendEmail({
   subject: string;
   react: ReactElement;
 }) {
-  return resend.emails.send({ from: env.EMAIL_FROM, to, subject, react });
+  return resend.emails.send({ from: env.EMAIL_FROM, react, subject, to });
 }

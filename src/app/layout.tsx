@@ -10,8 +10,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Agentic Boilerplate",
   description: "Production-ready Next.js 16 boilerplate with CLI scaffolding",
+  title: "Agentic Boilerplate",
 };
 
 export default async function RootLayout({

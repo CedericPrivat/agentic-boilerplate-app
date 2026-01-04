@@ -9,17 +9,17 @@ async function checkDatabase(): Promise<CheckResult> {
     await db.execute("SELECT 1");
     return {
       id: "db-connection",
+      message: "Database connected",
       name: "PostgreSQL connection",
       status: "success",
-      message: "Database connected",
     };
   } catch {
     return {
+      helpText: "Run: bun run dev:services",
       id: "db-connection",
+      message: "Connection failed",
       name: "PostgreSQL connection",
       status: "error",
-      message: "Connection failed",
-      helpText: "Run: bun run dev:services",
     };
   }
 }
@@ -39,12 +39,12 @@ function checkEnv(
     !value.includes("xxx");
 
   return {
-    id: `env-${name.toLowerCase()}`,
-    name: displayName,
-    status: isConfigured ? "success" : "error",
-    message: isConfigured ? "Configured" : "Not configured",
     copyValue: isConfigured ? undefined : copyTemplate,
     externalLink: isConfigured ? undefined : link,
+    id: `env-${name.toLowerCase()}`,
+    message: isConfigured ? "Configured" : "Not configured",
+    name: displayName,
+    status: isConfigured ? "success" : "error",
   };
 }
 
@@ -56,15 +56,12 @@ export async function runAllChecks(): Promise<{
 
   const groups: CheckGroup[] = [
     {
-      id: "database",
-      icon: "📦",
-      title: "Database",
       checks: [dbCheck],
+      icon: "📦",
+      id: "database",
+      title: "Database",
     },
     {
-      id: "auth",
-      icon: "🔐",
-      title: "Authentication",
       checks: [
         checkEnv(
           "BETTER_AUTH_SECRET",
@@ -78,11 +75,11 @@ export async function runAllChecks(): Promise<{
           "https://console.cloud.google.com/apis/credentials",
         ),
       ],
+      icon: "🔐",
+      id: "auth",
+      title: "Authentication",
     },
     {
-      id: "email",
-      icon: "📧",
-      title: "Email",
       checks: [
         checkEnv(
           "RESEND_API_KEY",
@@ -96,11 +93,11 @@ export async function runAllChecks(): Promise<{
           "EMAIL_FROM=noreply@yourdomain.com",
         ),
       ],
+      icon: "📧",
+      id: "email",
+      title: "Email",
     },
     {
-      id: "analytics",
-      icon: "📈",
-      title: "Analytics",
       checks: [
         checkEnv(
           "NEXT_PUBLIC_UMAMI_URL",
@@ -113,11 +110,11 @@ export async function runAllChecks(): Promise<{
           "NEXT_PUBLIC_UMAMI_WEBSITE_ID=xxx",
         ),
       ],
+      icon: "📈",
+      id: "analytics",
+      title: "Analytics",
     },
     {
-      id: "monitoring",
-      icon: "🚨",
-      title: "Error Monitoring",
       checks: [
         checkEnv(
           "SENTRY_DSN",
@@ -126,6 +123,9 @@ export async function runAllChecks(): Promise<{
           "https://sentry.io/",
         ),
       ],
+      icon: "🚨",
+      id: "monitoring",
+      title: "Error Monitoring",
     },
   ];
 

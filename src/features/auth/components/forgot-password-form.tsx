@@ -27,10 +27,10 @@ export function ForgotPasswordForm() {
   const t = useTranslations("auth");
 
   const form = useForm<ForgotPasswordFormData>({
-    resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
       email: "",
     },
+    resolver: zodResolver(forgotPasswordSchema),
   });
 
   async function onSubmit(data: ForgotPasswordFormData) {

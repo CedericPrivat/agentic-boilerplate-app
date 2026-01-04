@@ -13,24 +13,24 @@ export async function GET() {
     const responseTime = Date.now() - startTime;
 
     return NextResponse.json({
-      status: "healthy",
-      timestamp: new Date().toISOString(),
       checks: {
-        database: "connected",
         api: "responsive",
+        database: "connected",
       },
       responseTime: `${responseTime}ms`,
+      status: "healthy",
+      timestamp: new Date().toISOString(),
     });
   } catch (error) {
     return NextResponse.json(
       {
-        status: "unhealthy",
-        timestamp: new Date().toISOString(),
         checks: {
-          database: "disconnected",
           api: "responsive",
+          database: "disconnected",
         },
         error: error instanceof Error ? error.message : "Unknown error",
+        status: "unhealthy",
+        timestamp: new Date().toISOString(),
       },
       { status: 503 },
     );

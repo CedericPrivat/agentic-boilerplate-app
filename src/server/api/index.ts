@@ -5,15 +5,15 @@ export const app = new OpenAPIHono();
 
 // OpenAPI documentation
 app.doc("/doc", {
-  openapi: "3.1.0",
   info: {
     title: "Agentic Boilerplate API",
     version: "1.0.0",
   },
+  openapi: "3.1.0",
 });
 
 // Scalar UI
-app.get("/reference", Scalar({ url: "/api/doc", theme: "kepler" }));
+app.get("/reference", Scalar({ theme: "kepler", url: "/api/doc" }));
 
 // Health check
 app.get("/health", (c) => {

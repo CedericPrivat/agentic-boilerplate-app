@@ -8,12 +8,12 @@ import { Button } from "@/components/ui/button";
 import type { CheckResult } from "../types";
 
 const statusIcons = {
-  success: <Check className="h-4 w-4 text-green-500" />,
-  warning: <AlertTriangle className="h-4 w-4 text-yellow-500" />,
   error: <X className="h-4 w-4 text-red-500" />,
   pending: (
     <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-gray-600" />
   ),
+  success: <Check className="h-4 w-4 text-green-500" />,
+  warning: <AlertTriangle className="h-4 w-4 text-yellow-500" />,
 };
 
 export function CheckItem({ check }: { check: CheckResult }) {

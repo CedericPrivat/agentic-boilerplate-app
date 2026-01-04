@@ -29,18 +29,18 @@ export function RegisterForm() {
   const t = useTranslations("auth");
 
   const form = useForm<RegisterFormData>({
-    resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: "",
       email: "",
+      name: "",
       password: "",
     },
+    resolver: zodResolver(registerSchema),
   });
 
   async function onSubmit(data: RegisterFormData) {
     const result = await signUp.email({
-      name: data.name,
       email: data.email,
+      name: data.name,
       password: data.password,
     });
 

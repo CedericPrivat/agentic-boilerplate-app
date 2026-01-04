@@ -29,11 +29,11 @@ export function LoginForm() {
   const t = useTranslations("auth");
 
   const form = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
+    resolver: zodResolver(loginSchema),
   });
 
   async function onSubmit(data: LoginFormData) {

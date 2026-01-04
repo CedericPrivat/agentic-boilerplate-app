@@ -1,27 +1,27 @@
 {
+  "auth": {
+    "email": "E-Mail",
+    "forgotPassword": "Passwort vergessen?",
+    "hasAccount": "Bereits ein Konto?",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "noAccount": "Noch kein Konto?",
+    "password": "Passwort",
+    "register": "Registrieren"
+  },
   "common": {
-    "loading": "Wird geladen...",
-    "error": "Ein Fehler ist aufgetreten",
-    "save": "Speichern",
     "cancel": "Abbrechen",
     "delete": "Löschen",
     "edit": "Bearbeiten",
+    "error": "Ein Fehler ist aufgetreten",
+    "loading": "Wird geladen...",
+    "save": "Speichern",
     "submit": "Absenden"
   },
-  "auth": {
-    "login": "Anmelden",
-    "logout": "Abmelden",
-    "register": "Registrieren",
-    "email": "E-Mail",
-    "password": "Passwort",
-    "forgotPassword": "Passwort vergessen?",
-    "noAccount": "Noch kein Konto?",
-    "hasAccount": "Bereits ein Konto?"
-  },
   "setup": {
-    "title": "Einrichtungscheckliste",
     "description": "Folgen Sie diesen Schritten um zu starten",
+    "lastChecked": "Zuletzt geprüft: {time}",
     "recheckAll": "Alle erneut prüfen",
-    "lastChecked": "Zuletzt geprüft: {time}"
+    "title": "Einrichtungscheckliste"
   }
 }

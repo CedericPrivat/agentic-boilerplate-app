@@ -1,27 +1,27 @@
 {
+  "auth": {
+    "email": "Email",
+    "forgotPassword": "Forgot password?",
+    "hasAccount": "Already have an account?",
+    "login": "Log in",
+    "logout": "Log out",
+    "noAccount": "Don't have an account?",
+    "password": "Password",
+    "register": "Register"
+  },
   "common": {
-    "loading": "Loading...",
-    "error": "An error occurred",
-    "save": "Save",
     "cancel": "Cancel",
     "delete": "Delete",
     "edit": "Edit",
+    "error": "An error occurred",
+    "loading": "Loading...",
+    "save": "Save",
     "submit": "Submit"
   },
-  "auth": {
-    "login": "Log in",
-    "logout": "Log out",
-    "register": "Register",
-    "email": "Email",
-    "password": "Password",
-    "forgotPassword": "Forgot password?",
-    "noAccount": "Don't have an account?",
-    "hasAccount": "Already have an account?"
-  },
   "setup": {
-    "title": "Setup Checklist",
     "description": "Complete the following steps to get started",
+    "lastChecked": "Last checked: {time}",
     "recheckAll": "Re-check All",
-    "lastChecked": "Last checked: {time}"
+    "title": "Setup Checklist"
   }
 }
