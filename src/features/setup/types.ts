@@ -8,10 +8,6 @@ export type CheckResult = {
   helpText?: string;
   copyValue?: string;
   externalLink?: string;
-  actionButton?: {
-    label: string;
-    action: string;
-  };
 };
 
 export type CheckGroup = {
