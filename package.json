@@ -57,6 +57,7 @@
     "drizzle-kit": "^0.31.8",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
+    "react-email": "^5.1.1",
     "tailwindcss": "^4",
     "typescript": "^5",
     "ultracite": "^7.0.5"
