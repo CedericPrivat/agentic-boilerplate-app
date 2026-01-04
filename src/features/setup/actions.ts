@@ -30,6 +30,7 @@ function checkEnv(
   copyTemplate?: string,
   link?: string,
 ): CheckResult {
+  // biome-ignore lint/style/noProcessEnv: Setup checklist must dynamically check arbitrary environment variables
   const value = process.env[name];
   const isConfigured =
     value &&

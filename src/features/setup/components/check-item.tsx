@@ -2,8 +2,8 @@
 
 import { AlertTriangle, Check, Copy, ExternalLink, X } from "lucide-react";
 import { toast } from "sonner";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
 
 import type { CheckResult } from "../types";
 
@@ -38,22 +38,32 @@ export function CheckItem({ check }: { check: CheckResult }) {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => copyToClipboard(check.copyValue!)}
+              onClick={() => {
+                if (check.copyValue) {
+                  copyToClipboard(check.copyValue);
+                }
+              }}
             >
               <Copy className="mr-1 h-3 w-3" />
               Copy
             </Button>
           )}
           {check.externalLink && (
-            <a
-              href={check.externalLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+            <Button
+              variant="outline"
+              size="sm"
+              render={
+                // biome-ignore lint/a11y/useAnchorContent: Content provided by Button children via render prop pattern
+                <a
+                  href={check.externalLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              }
             >
               <ExternalLink className="mr-1 h-3 w-3" />
               Open
-            </a>
+            </Button>
           )}
         </div>
       </div>
