@@ -6,11 +6,12 @@ services:
     environment:
       POSTGRES_USER: ${DATABASE_USER:-postgres}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
-      POSTGRES_DB: ${DATABASE_NAME:-agentic_app}
+      POSTGRES_DB: ${DATABASE_NAME:-dev}
     ports:
       - "${DATABASE_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init-umami.sql:/docker-entrypoint-initdb.d/init-umami.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER:-postgres}"]
       interval: 10s
@@ -18,7 +19,7 @@ services:
       retries: 5
 
   uptime-kuma:
-    image: louislam/uptime-kuma:1
+    image: louislam/uptime-kuma:latest
     container_name: uptime-kuma
     restart: unless-stopped
     ports:
@@ -27,18 +28,17 @@ services:
       - uptime_kuma_data:/app/data
 
   umami:
-    image: ghcr.io/umami-software/umami:postgresql-latest
+    image: umamisoftware/umami:postgresql-latest
     container_name: umami
     restart: unless-stopped
-    environment:
-      DATABASE_URL: postgresql://${DATABASE_USER:-postgres}:${DATABASE_PASSWORD:-password}@postgres:5432/umami
-      DATABASE_TYPE: postgresql
-      APP_SECRET: ${UMAMI_APP_SECRET:-replace-me-with-a-random-string}
-    ports:
-      - "${UMAMI_PORT:-3003}:3000"
     depends_on:
       postgres:
         condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://umami:umami@postgres:5432/umami
+      APP_SECRET: ${UMAMI_APP_SECRET:-replace-me-with-a-random-string}
+    ports:
+      - "${UMAMI_PORT:-3003}:3000"
 
 volumes:
   postgres_data:
