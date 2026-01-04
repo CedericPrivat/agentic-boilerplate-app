@@ -3,3 +3,6 @@ peer = false
 
 [publish]
 registry = "https://registry.npmjs.org/"
+
+[test]
+root = "./src"

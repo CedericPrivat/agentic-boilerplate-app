@@ -46,6 +46,20 @@
 - **DO NOT add "🤖 Generated with Claude Code"** footer
 - Keep commit messages clean and conventional (feat:, fix:, chore:, etc.)
 
+### 7. Testing Conventions
+- **Use `.test.ts` extension** for all test files (NOT `.spec.ts`)
+- E2E tests go in `tests/e2e/` directory
+- Unit tests are co-located with source files in `src/`
+- Do NOT write unit tests for simple utilities (like `cn()`)
+- Playwright config uses `process.env.CI` directly (with biome-ignore comment)
+- Set `retries: 0` to avoid masking flaky tests
+
+### 8. Code Review After Implementation
+- **ALWAYS run code reviewers after implementing a phase or feature**
+- Reviewers must run: linter, formatter, and typechecker
+- Fix all issues before proceeding to next phase
+- Question the implementation plan if something seems wrong
+
 ---
 
 ## Phase 1: Project Foundation
