@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:18.1-alpine
-    container_name: agentic-postgres
+    container_name: postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${DATABASE_USER:-postgres}
@@ -19,12 +19,26 @@ services:
 
   uptime-kuma:
     image: louislam/uptime-kuma:1
-    container_name: agentic-uptime-kuma
+    container_name: uptime-kuma
     restart: unless-stopped
     ports:
       - "${UPTIME_KUMA_PORT:-3001}:3001"
     volumes:
       - uptime_kuma_data:/app/data
+
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    container_name: umami
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${DATABASE_USER:-postgres}:${DATABASE_PASSWORD:-password}@postgres:5432/umami
+      DATABASE_TYPE: postgresql
+      APP_SECRET: ${UMAMI_APP_SECRET:-replace-me-with-a-random-string}
+    ports:
+      - "${UMAMI_PORT:-3003}:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   postgres_data:
