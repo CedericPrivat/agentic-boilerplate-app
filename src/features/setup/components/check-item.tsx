@@ -1,0 +1,62 @@
+"use client";
+
+import { AlertTriangle, Check, Copy, ExternalLink, X } from "lucide-react";
+import { toast } from "sonner";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+import type { CheckResult } from "../types";
+
+const statusIcons = {
+  success: <Check className="h-4 w-4 text-green-500" />,
+  warning: <AlertTriangle className="h-4 w-4 text-yellow-500" />,
+  error: <X className="h-4 w-4 text-red-500" />,
+  pending: (
+    <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-gray-600" />
+  ),
+};
+
+export function CheckItem({ check }: { check: CheckResult }) {
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast.success("Copied to clipboard");
+  };
+
+  return (
+    <div className="flex items-start gap-3 py-2">
+      <div className="mt-0.5">{statusIcons[check.status]}</div>
+      <div className="flex-1 space-y-1">
+        <div className="flex items-center gap-2">
+          <span className="font-medium">{check.name}</span>
+          <span className="text-sm text-muted-foreground">{check.message}</span>
+        </div>
+        {check.helpText && (
+          <p className="text-sm text-muted-foreground">{check.helpText}</p>
+        )}
+        <div className="flex gap-2">
+          {check.copyValue && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => copyToClipboard(check.copyValue!)}
+            >
+              <Copy className="mr-1 h-3 w-3" />
+              Copy
+            </Button>
+          )}
+          {check.externalLink && (
+            <a
+              href={check.externalLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+            >
+              <ExternalLink className="mr-1 h-3 w-3" />
+              Open
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
