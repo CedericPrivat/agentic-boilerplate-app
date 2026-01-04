@@ -2889,12 +2889,13 @@ bun db:seed          # Seed database
 ## Code Style
 
 1. **Imports:** Always use `@/` alias imports
-2. **Exports:** Named exports, no barrel files
-3. **Components:** Server Components by default, add 'use client' when needed
-4. **Data:** Server Components → Server Actions → TanStack Query
-5. **Validation:** Zod schemas in feature `schemas.ts`
-6. **Styling:** Tailwind + cn() helper from `@/lib/utils`
-7. **Commits:** Conventional commits (feat:, fix:, chore:, docs:)
+2. **React imports:** Use specific imports, not namespace imports (e.g., `import type { ComponentProps } from "react"` not `import type * as React from "react"`). Exception: Schema imports in `src/db/index.ts` may use namespace imports.
+3. **Exports:** Named exports, no barrel files
+4. **Components:** Server Components by default, add 'use client' when needed
+5. **Data:** Server Components → Server Actions → TanStack Query
+6. **Validation:** Zod schemas in feature `schemas.ts`
+7. **Styling:** Tailwind + cn() helper from `@/lib/utils`
+8. **Commits:** Conventional commits (feat:, fix:, chore:, docs:)
 
 ## Project Structure
 
