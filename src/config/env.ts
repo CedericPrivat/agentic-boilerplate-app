@@ -4,6 +4,7 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
+    CI: z.coerce.boolean().optional().default(false),
     DATABASE_URL: z.url(),
     BETTER_AUTH_SECRET: z.string().min(32),
     GOOGLE_CLIENT_ID: z.string().optional(),
@@ -24,6 +25,7 @@ export const env = createEnv({
     NEXT_PUBLIC_UMAMI_WEBSITE_ID: z.string().optional(),
   },
   runtimeEnv: {
+    CI: process.env.CI,
     DATABASE_URL: process.env.DATABASE_URL,
     BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
