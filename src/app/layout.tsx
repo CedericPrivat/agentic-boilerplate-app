@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { getLocale, getMessages } from "next-intl/server";
+import { getLocale, getMessages, getTimeZone } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Providers } from "@/providers";
@@ -21,11 +21,12 @@ export default async function RootLayout({
 }) {
   const locale = await getLocale();
   const messages = await getMessages();
+  const timeZone = await getTimeZone();
 
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <Providers locale={locale} messages={messages}>
+        <Providers locale={locale} messages={messages} timeZone={timeZone}>
           {children}
         </Providers>
       </body>

@@ -12,8 +12,11 @@ export default getRequestConfig(async () => {
       ? localeCookie
       : defaultLocale;
 
+  const timeZone = cookieStore.get("timeZone")?.value ?? "UTC";
+
   return {
     locale,
     messages: (await import(`../../messages/${locale}.json`)).default,
+    timeZone,
   };
 });

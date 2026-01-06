@@ -6,16 +6,16 @@
       "Write",
       "Glob",
       "Grep",
-      "Bash(bun *)",
-      "Bash(bunx *)",
-      "Bash(git *)",
-      "Bash(docker *)",
-      "Bash(ls *)",
-      "Bash(cat *)",
-      "Bash(mkdir *)",
-      "Bash(rm *)",
-      "Bash(cp *)",
-      "Bash(mv *)"
+      "Bash(bun :*)",
+      "Bash(bunx :*)",
+      "Bash(git :*)",
+      "Bash(docker :*)",
+      "Bash(ls :*)",
+      "Bash(cat :*)",
+      "Bash(mkdir :*)",
+      "Bash(rm :*)",
+      "Bash(cp :*)",
+      "Bash(mv :*)"
     ],
     "deny": []
   }
